@@ -1,16 +1,22 @@
 import { fetchNews } from './services/newsApiService';
-import { saveNewsToFile, readNewsFromFile } from './utils/fileManager';
+import chooseBestArticle from './services/aiService';
+import fs from 'fs';
 
 async function main() {
   const articles = await fetchNews();
-  if (articles.length > 0) {
-    saveNewsToFile(articles);
+
+  if (articles.length === 0) {
+    console.log('Nenhuma notícia encontrada.');
+    return;
   }
 
-  // Se você quiser testar a leitura do arquivo:
-  const savedArticles = readNewsFromFile();
-  if (savedArticles) {
-    console.log(`Foram carregados ${savedArticles.length} artigos.`);
+  fs.writeFileSync('news.json', JSON.stringify(articles, null, 2));
+  console.log('📝 Notícias salvas com sucesso em news.json');
+
+  const result = await chooseBestArticle(articles);
+
+  if (result) {
+    console.log(`\n🤖 Melhor notícia escolhida pela IA:\n${result}`);
   }
 }
 

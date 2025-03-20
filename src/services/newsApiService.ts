@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as dotenv from 'dotenv';
 
 export type Article = {
   source: { id: string | null; name: string };
@@ -16,8 +17,8 @@ export type ApiResponse = {
   articles: Article[];
 };
 
-
-const API_KEY = '';
+dotenv.config();
+const API_KEY = process.env.API_KEY;
 const URL = `https://newsapi.org/v2/everything?q=technology&pageSize=50&apiKey=${API_KEY}`;
 
 export async function fetchNews(): Promise<Article[]> {
@@ -29,7 +30,9 @@ export async function fetchNews(): Promise<Article[]> {
 
     if (response.data.status === 'ok') {
       console.log(`📊 Número de artigos encontrados: ${response.data.articles.length}`);
-      return response.data.articles;
+      const topArticles = response.data.articles.slice(0, 1);
+      console.log(`📋 Retornando os 3 primeiros artigos.`);
+      return topArticles;
     } else {
       console.error("❌ Erro na resposta da API:", response.data);
       return [];
