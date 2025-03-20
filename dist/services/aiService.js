@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = chooseBestArticle;
 const openai_1 = require("openai");
-const OPENAI_API_KEY = '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';
+const OPENAI_API_KEY = '';
 const openai = new openai_1.OpenAI({
     apiKey: OPENAI_API_KEY,
 });
