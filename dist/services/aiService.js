@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = chooseBestArticle;
 const openai_1 = require("openai");
-const OPENAI_API_KEY = '';
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const openai = new openai_1.OpenAI({
     apiKey: OPENAI_API_KEY,
 });
